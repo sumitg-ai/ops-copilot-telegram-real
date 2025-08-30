@@ -16,11 +16,9 @@ curl http://localhost:8000/healthz
 ### Test Commands
 Use curl POST requests with `/start`, `/slacktest`, `/notiontest`, `/promises`, `/digest today`.
 
-Perfect 👍 — here’s the regenerated **curl test commands with `jq -r '.message'`** so the output looks clean (no `\n` escape sequences, proper line breaks).
-
 ---
 
-✅ Test Commands (Mock or Real mode)
+Test Commands (Mock or Real mode)
 
 **1. `/start` — sanity check**
 
