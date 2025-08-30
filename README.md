@@ -117,21 +117,59 @@ curl http://localhost:8000/healthz
 - `/promises` → detect commitments + task creation
 - `/digest today` → daily digest summary
 
-### Client interaction
+### End-to-End Flow (with Telegram UI)
 The client will interact only through Telegram UI (on their phone or desktop app).
 
 Example flow in production:
+1.User opens Telegram, types /digest today in the chat with the bot.
+2.Telegram → sends a webhook POST to your FastAPI server (/telegram/webhook).
+3.Your code processes it → calls Slack API, Notion API → generates digest.
+4.Response goes back to Telegram → user sees digest in chat.
 
-User opens Telegram, types /digest today in the chat with the bot.
 
-Telegram → sends a webhook POST to your FastAPI server (/telegram/webhook).
-
-Your code processes it → calls Slack API, Notion API → generates digest.
-
-Response goes back to Telegram → user sees digest in chat.
-
-So the Telegram app is the UI for the client.
-
-🔹 Purpose of curl commands
+### Purpose of Curl commands
 
 For our testing/demo before hooking into Telegram.(Only for Dev team to test)
+
+Perfect — your README is already very clear. Let’s add a new section **Telegram Webhook Setup** so the IT team can finish end-to-end testing inside Telegram once the bot is deployed on a public URL (AWS, etc.).
+
+Here’s the updated portion you can append under **Real Mode**:
+
+---
+
+### Telegram Webhook Setup
+
+Once the FastAPI app is deployed on a **public HTTPS endpoint** (e.g., AWS ECS, App Runner, or any host with SSL), you need to tell Telegram where to send updates.
+
+1. Make sure you have your **Telegram Bot Token** (from BotFather).
+2. Deploy your FastAPI app and note the public URL. For example:
+
+   ```
+   https://yourdomain.com/telegram/webhook
+   ```
+3. Register the webhook with Telegram:
+
+   ```bash
+   curl -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook \
+     -d "url=https://yourdomain.com/telegram/webhook"
+   ```
+4. Verify webhook is set:
+
+   ```bash
+   curl https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/getWebhookInfo
+   ```
+
+   You should see your webhook URL and `last_error_date` = 0 if successful.
+
+---
+
+### Pro Tip:
+
+* If you redeploy to a different host, re-run the `setWebhook` command with the new URL.
+* If you want to disable the webhook temporarily, run:
+
+  ```bash
+  curl -X POST https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/deleteWebhook
+  ```
+
+
