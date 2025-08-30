@@ -16,6 +16,82 @@ curl http://localhost:8000/healthz
 ### Test Commands
 Use curl POST requests with `/start`, `/slacktest`, `/notiontest`, `/promises`, `/digest today`.
 
+Perfect 👍 — here’s the regenerated **curl test commands with `jq -r '.message'`** so the output looks clean (no `\n` escape sequences, proper line breaks).
+
+---
+
+✅ Test Commands (Mock or Real mode)
+
+**1. `/start` — sanity check**
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/telegram/webhook \
+  -H "Content-Type: application/json" \
+  -d '{"message":{"chat":{"id":"123"},"text":"/start"}}' \
+  | jq -r '.message'
+```
+
+**2. `/slacktest` — last 10 Slack messages**
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/telegram/webhook \
+  -H "Content-Type: application/json" \
+  -d '{"message":{"chat":{"id":"123"},"text":"/slacktest"}}' \
+  | jq -r '.message'
+```
+
+**3. `/notiontest` — last 5 Notion tasks**
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/telegram/webhook \
+  -H "Content-Type: application/json" \
+  -d '{"message":{"chat":{"id":"123"},"text":"/notiontest"}}' \
+  | jq -r '.message'
+```
+
+**4. `/promises` — detect commitments**
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/telegram/webhook \
+  -H "Content-Type: application/json" \
+  -d '{"message":{"chat":{"id":"123"},"text":"/promises"}}' \
+  | jq -r '.message'
+```
+
+**5. `/digest today` — daily digest summary**
+
+```bash
+curl -s -X POST http://127.0.0.1:8000/telegram/webhook \
+  -H "Content-Type: application/json" \
+  -d '{"message":{"chat":{"id":"123"},"text":"/digest today"}}' \
+  | jq -r '.message'
+```
+
+```
+*Digest (Today)*
+
+- Slack Promises: 10
+   • @alice: I'll send the report by Friday
+   • @bob: Will push new code by EOD
+   • @carol: Due by 9/15
+   … and 7 more
+
+- Overdue Notion Tasks: 2
+   • Update Campaign Metrics (due: 8/29)
+   • Review SOP Draft (due: 8/28)
+
+- Recent #Kandy messages:
+   • @dave: Any blockers on deployment?
+   • @emma: Running tests now
+   • @frank: PR merged 
+   … and 7 more
+```
+
+---
+
+
+
+
 ## 2. Run in Real Mode (Slack + Notion APIs)
 Real mode calls Slack + Notion APIs using credentials provided in `.env`.
 
