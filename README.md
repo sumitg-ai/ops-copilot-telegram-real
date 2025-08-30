@@ -116,3 +116,22 @@ curl http://localhost:8000/healthz
 - `/notiontest` → last 5 Notion tasks
 - `/promises` → detect commitments + task creation
 - `/digest today` → daily digest summary
+
+### Client interaction
+The client will interact only through Telegram UI (on their phone or desktop app).
+
+Example flow in production:
+
+User opens Telegram, types /digest today in the chat with the bot.
+
+Telegram → sends a webhook POST to your FastAPI server (/telegram/webhook).
+
+Your code processes it → calls Slack API, Notion API → generates digest.
+
+Response goes back to Telegram → user sees digest in chat.
+
+So the Telegram app is the UI for the client.
+
+🔹 Purpose of curl commands
+
+For our testing/demo before hooking into Telegram.(Only for Dev team to test)
