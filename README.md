@@ -1,5 +1,3 @@
-Got it 👍 — here’s the cleaned-up, well-formatted **README.md content** for your **real repo**. I’ve applied all the formatting fixes, consistent section titles, and clarified dev vs client usage.
-
 ---
 
 # Ops Co-Pilot — Telegram MVP (Slack + Notion Digest)
