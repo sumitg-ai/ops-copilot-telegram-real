@@ -5,6 +5,9 @@
 This project demonstrates a Telegram MVP bot that integrates Slack + Notion and produces a daily digest.
 
 ---
+### Ops Co-Pilot - Telegram MVP (Data Flow) 
+<img width="1543" height="716" alt="image" src="https://github.com/user-attachments/assets/1d94c722-6942-4f82-9b57-59d032d20e8a" />
+
 
 ## Run in Real Mode (Slack + Notion APIs)
 
